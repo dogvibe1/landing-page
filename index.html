@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DogVibe - אילוף כלבים בוואטסאפ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #123456;
+            /* כחול כהה לפי החולצה */
+            --accent-color: #25D366;
+            /* ירוק וואטסאפ */
+            --text-light: #ffffff;
+            --text-dark: #333;
+            --bg-light: #f4f4f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Assistant', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('dog1.jpg');
+            /* תמונה ראשונה */
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+        }
+
+        /* General Button */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 25px;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            background-color: #1da851;
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 50px 20px;
+            gap: 30px;
+            background: white;
+        }
+
+        .feature-card {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Content Section with Image */
+        .content-split {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .content-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .content-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .content-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Process Steps */
+        .steps {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .step-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .step-item {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #222;
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-split {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <h1>DogVibe</h1>
+        <p>אילוף מקצועי, ליווי אישי ותוצאות מוכחות - הכל דרך הוואטסאפ שלכם.</p>
+        <a href="https://wa.me/972527710781?text=היי צוריאל, אני רוצה להתחיל באילוף!" class="cta-button">
+            <i class="fab fa-whatsapp"></i> בואו נתחיל עכשיו
+        </a>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-video"></i>
+            <h3>ליווי בווידאו</h3>
+            <p>שלחו סרטוני התקדמות וקבלו פידבק מדויק וסרטוני הדרכה מותאמים אישית.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-comments"></i>
+            <h3>מענה אנושי</h3>
+            <p>לא בוטים, לא ניחושים. מענה אישי לכל שאלה ודילמה שעולה בדרך.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-home"></i>
+            <h3>נוחות מקסימלית</h3>
+            <p>מאלפים בסביבה הטבעית של הכלב, בזמן שלכם ובקצב שלכם.</p>
+        </div>
+    </section>
+
+    <section class="content-split">
+        <div class="content-image">
+            <img src="dog2.jpg" alt="אילוף כלבים">
+        </div>
+        <div class="content-text">
+            <h2>איך זה עובד?</h2>
+            <p>השיטה של DogVibe נולדה מתוך הבנה שאילוף אמיתי קורה בבית, ביומיום. במקום פגישה חד שבועית, אתם מקבלים ליווי
+                רציף שבו אנחנו מנתחים יחד את ההתנהגות של הכלב שלכם בזמן אמת.</p>
+        </div>
+    </section>
+
+    <section class="steps">
+        <h2>התהליך שלנו</h2>
+        <div class="step-list">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <h4>שליחת הודעה</h4>
+                <p>לוחצים על הכפתור ומתחילים שיחה בוואטסאפ.</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <h4>מילוי שאלון</h4>
+                <p>עונים על כמה שאלות כדי שאכיר את הכלב שלכם.</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <h4>סרטון ראשון</h4>
+                <p>מקבלים הנחיות ראשונות ויוצאים לדרך!</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <h4>תרגול ומשוב</h4>
+                <p>שולחים לי סרטונים שלכם מתרגלים ומקבלים תגובה מקצועית.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-split" style="flex-direction: row-reverse;">
+        <div class="content-image">
+            <img src="dog3.jpg" alt="צוריאל והכלבים">
+        </div>
+        <div class="content-text">
+            <h2>נעים להכיר, צוריאל חנוכה</h2>
+            <p>מומחה לאילוף כלבים, כלבנות טיפולית וייעוץ אישי. המטרה שלי היא ליצור תקשורת בריאה ביניכם לבין החבר הכי טוב
+                שלכם, בצורה נעימה, מקצועית וזמינה תמיד.</p>
+            <a href="https://wa.me/972527710781" class="cta-button">דברו איתי בוואטסאפ</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 DogVibe - צוריאל חנוכה | 052-7710781</p>
+    </footer>
+
+</body>
+
+</html>
