@@ -164,6 +164,137 @@
             font-size: 1.5rem;
         }
 
+        /* FAQ Container & Bar */
+        .faq-container {
+            max-width: 800px;
+            margin: 40px auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 0 20px;
+        }
+
+        .faq-bar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: background-color 0.3s, border-radius 0.3s;
+            user-select: none;
+        }
+
+        .faq-bar:hover {
+            background-color: #0e2a47;
+        }
+
+        .faq-bar h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .faq-content {
+            background-color: white;
+            display: none;
+            padding-top: 20px;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-bottom: 20px;
+        }
+
+        .faq-card {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .faq-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: var(--accent-color);
+        }
+
+        .faq-card h3 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: right;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--text-dark);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         footer {
             text-align: center;
             padding: 40px;
@@ -188,9 +319,6 @@
     <section class="hero">
         <h1>DogVibe</h1>
         <p>אילוף מקצועי, ליווי אישי ותוצאות מוכחות - הכל דרך הוואטסאפ שלכם.</p>
-        <a href="https://wa.me/972527710781?text=היי צוריאל, אני רוצה להתחיל באילוף!" class="cta-button">
-            <i class="fab fa-whatsapp"></i> בואו נתחיל עכשיו
-        </a>
     </section>
 
     <section class="features">
@@ -260,10 +388,86 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <div class="faq-container">
+        <div class="faq-bar" onclick="toggleFaq()">
+            <h2>שאלות נפוצות <i class="fas fa-chevron-down" id="faqIcon"></i></h2>
+        </div>
+        <div class="faq-content" id="faqContent">
+            <div class="faq-list">
+                <div class="faq-card" onclick="openModal('faqModal1')">
+                    <h3>איך מתבצע האילוף בוואטסאפ?</h3>
+                </div>
+                <div class="faq-card" onclick="openModal('faqModal2')">
+                    <h3>תוך כמה זמן רואים תוצאות?</h3>
+                </div>
+                <div class="faq-card" onclick="openModal('faqModal3')">
+                    <h3>האם השיטה מתאימה לגורים?</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="faqModal1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('faqModal1')">&times;</span>
+            <h2>איך מתבצע האילוף בוואטסאפ?</h2>
+            <p>האילוף מתבצע באמצעות שליחת סרטונים שלכם מתרגלים עם הכלב. אני צופה בסרטונים, מנתח את ההתנהגות ונותן לכם משוב מדויק וסרטוני הדרכה המשכיים.</p>
+        </div>
+    </div>
+    
+    <div id="faqModal2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('faqModal2')">&times;</span>
+            <h2>תוך כמה זמן רואים תוצאות?</h2>
+            <p>לרוב רואים שיפור כבר בשבוע הראשון, אך תהליך משמעותי דורש התמדה ותרגול עקבי לאורך מספר שבועות.</p>
+        </div>
+    </div>
+    
+    <div id="faqModal3" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('faqModal3')">&times;</span>
+            <h2>האם השיטה מתאימה לגורים?</h2>
+            <p>בהחלט! אילוף גורים דרך וואטסאפ מאפשר לכם לקבל הדרכה צמודה על חינוך לצרכים, מניעת נשיכות ובניית בסיס תקשורתי נכון מהיום הראשון.</p>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 DogVibe - צוריאל חנוכה | 052-7710781</p>
     </footer>
 
+    <script>
+        function toggleFaq() {
+            const content = document.getElementById('faqContent');
+            const icon = document.getElementById('faqIcon');
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                document.querySelector('.faq-bar').style.borderBottomLeftRadius = '15px';
+                document.querySelector('.faq-bar').style.borderBottomRightRadius = '15px';
+            } else {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                document.querySelector('.faq-bar').style.borderBottomLeftRadius = '0';
+                document.querySelector('.faq-bar').style.borderBottomRightRadius = '0';
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 
 </html>
