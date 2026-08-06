@@ -325,6 +325,117 @@
                 padding: 20px;
             }
         }
+
+        /* מיכל עבור כפתור הוואטסאפ ובועת הטקסט */
+        .whatsapp-container {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            direction: ltr; /* נבטיח שהמיקום והסדר יהיו תמיד משמאל לימין כדי שהבועה תהיה מימין לכפתור */
+        }
+
+        /* כפתור וואטסאפ צף */
+        .whatsapp-float {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            animation: whatsapp-pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(5deg);
+            background-color: #1da851;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        }
+
+        .whatsapp-float i {
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-float:hover i {
+            transform: scale(1.05);
+        }
+
+        /* בועת טקסט מלווה (Tooltip) */
+        .whatsapp-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 6px 12px;
+            margin-left: 15px; /* מרווח קבוע מצד ימין של הכפתור */
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateX(-10px);
+            white-space: nowrap;
+            pointer-events: none;
+            position: relative;
+            direction: rtl; /* החזרת כיוון הטקסט של הבועה לעברית תקינה */
+        }
+
+        /* חץ של בועת הטקסט המצביע שמאלה לכיוון הכפתור */
+        .whatsapp-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%; /* הצבת החץ בקצה השמאלי של הבועה */
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #333 transparent transparent;
+        }
+
+        /* הצגת בועת הטקסט במעבר עכבר על הכפתור */
+        .whatsapp-float:hover + .whatsapp-tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* אנימציית פעימה עדינה למשיכת תשומת לב נעימה */
+        @keyframes whatsapp-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* התאמה למסכים קטנים כדי לא להפריע לתוכן המרכזי */
+        @media (max-width: 480px) {
+            .whatsapp-container {
+                bottom: 20px;
+                left: 20px;
+            }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 26px;
+            }
+            .whatsapp-tooltip {
+                display: none; /* הסתרת הבועה במסכים קטנים כדי למנוע צפיפות */
+            }
+        }
     </style>
 </head>
 
@@ -647,6 +758,14 @@
         <p>&copy; 2026 DogVibe - צוריאל חנוכה | 055-9689062 | <a href="https://maps.app.goo.gl/dpJ4iEr3D7JSqcP57"
                 target="_blank" style="color: #ccc; text-decoration: underline;">העסק שלנו בגוגל</a></p>
     </footer>
+
+    <!-- כפתור וואטסאפ צף -->
+    <div class="whatsapp-container">
+        <a href="https://wa.me/972559689062" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="דברו איתי בוואטסאפ">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <span class="whatsapp-tooltip">דברו איתי בוואטסאפ</span>
+    </div>
 
     <script>
         function toggleFaq() {
