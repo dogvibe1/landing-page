@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DogVibe - אילוף כלבים בוואטסאפ</title>
+    <title>DogVibe - אילוף כלבים באונליין</title>
     <!-- Favicon (סמל האתר) -->
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
@@ -436,12 +436,904 @@
                 display: none; /* הסתרת הבועה במסכים קטנים כדי למנוע צפיפות */
             }
         }
+
+        /* === סקשן סילבוס ומפת הדרכים === */
+        :root {
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --locked-color: #94a3b8;
+            --active-shadow: 0 10px 25px -5px rgba(18, 52, 86, 0.15), 0 8px 10px -6px rgba(18, 52, 86, 0.15);
+            --success-glow: 0 0 20px rgba(37, 211, 102, 0.2);
+        }
+
+        /* Syllabus Section Container */
+        .syllabus-section {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .syllabus-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .syllabus-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .syllabus-header p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Syllabus Controls */
+        .syllabus-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .simulator-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-label {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        .toggle-btn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            user-select: none;
+        }
+
+        .toggle-btn:hover {
+            background: #e2e8f0;
+            color: var(--primary-color);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .syllabus-progress-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            min-width: 250px;
+        }
+
+        .progress-bar-bg-main {
+            flex-grow: 1;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill-main {
+            height: 100%;
+            background: var(--accent-color);
+            width: 8.33%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-text-main {
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+            color: var(--text-dark);
+        }
+
+        /* Timeline Roadmap Grid/List */
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        /* Vertical Connector Line */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 40px;
+            width: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        /* Stage Card Layout */
+        .stage-card {
+            position: relative;
+            margin-bottom: 40px;
+            padding-right: 90px;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        /* Timeline Node/Circle */
+        .stage-node {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--locked-color);
+            z-index: 3;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .stage-node::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            opacity: 0;
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Node States */
+        .stage-card.unlocked .stage-node {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: white;
+        }
+
+        .stage-card.active .stage-node {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 0 5px rgba(18, 52, 86, 0.15);
+            animation: pulse-active 2s infinite;
+        }
+
+        .stage-card.completed .stage-node {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            box-shadow: var(--success-glow);
+        }
+
+        @keyframes pulse-active {
+            0% { box-shadow: 0 0 0 0 rgba(18, 52, 86, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(18, 52, 86, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(18, 52, 86, 0); }
+        }
+
+        /* Content Panel of Stage Card */
+        .stage-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stage-card.active .stage-panel {
+            border-color: var(--primary-color);
+            box-shadow: var(--active-shadow);
+        }
+
+        .stage-card.completed .stage-panel {
+            border-color: rgba(37, 211, 102, 0.3);
+        }
+
+        .stage-card.locked {
+            opacity: 0.65;
+        }
+
+        .stage-card.locked .stage-panel {
+            background: #f8fafc;
+            user-select: none;
+        }
+
+        /* Header of the Stage */
+        .stage-header {
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: white;
+            transition: background 0.2s ease;
+        }
+
+        .stage-card.locked .stage-header {
+            cursor: not-allowed;
+            background: #fafafc;
+        }
+
+        .stage-header:hover:not(.stage-card.locked .stage-header) {
+            background: #fcfdfe;
+        }
+
+        .stage-title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stage-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            align-self: flex-start;
+            text-transform: uppercase;
+        }
+
+        .stage-badge.locked-badge {
+            background: #e2e8f0;
+            color: #64748b;
+        }
+
+        .stage-badge.active-badge {
+            background: rgba(18, 52, 86, 0.1);
+            color: var(--primary-color);
+        }
+
+        .stage-badge.completed-badge {
+            background: rgba(37, 211, 102, 0.15);
+            color: #1da851;
+        }
+
+        .stage-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stage-card.locked .stage-header h3 {
+            color: var(--locked-color);
+        }
+
+        .stage-summary {
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        .stage-icon-indicator {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            transition: transform 0.3s ease;
+        }
+
+        .stage-card.expanded .stage-icon-indicator {
+            transform: rotate(180deg);
+        }
+
+        /* Body of Stage Details */
+        .stage-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 0 solid var(--border-color);
+            background: #fafafa;
+        }
+
+        .stage-card.expanded .stage-body {
+            max-height: 1200px;
+            border-top-width: 1px;
+        }
+
+        .stage-body-content {
+            padding: 24px;
+        }
+
+        /* Commands Grid Styling */
+        .commands-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .command-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            transition: all 0.2s ease;
+        }
+
+        .stage-card:not(.locked) .command-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(18, 52, 86, 0.05);
+        }
+
+        .command-icon-wrapper {
+            background: rgba(18, 52, 86, 0.05);
+            color: var(--primary-color);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .command-card:hover .command-icon-wrapper {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .command-details h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .command-details p {
+            font-size: 0.88rem;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Exam Box Styling */
+        .exam-box {
+            background: #fff8f0;
+            border: 1px solid #ffe8cc;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stage-card.completed .exam-box {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .exam-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .exam-icon {
+            font-size: 1.5rem;
+            color: #ff922b;
+            margin-top: 2px;
+        }
+
+        .stage-card.completed .exam-icon {
+            color: var(--accent-color);
+        }
+
+        .exam-info-text h5 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #d9480f;
+            margin-bottom: 2px;
+        }
+
+        .stage-card.completed .exam-info-text h5 {
+            color: #15803d;
+        }
+
+        .exam-info-text p {
+            font-size: 0.9rem;
+            color: #868e96;
+        }
+
+        .stage-card.completed .exam-info-text p {
+            color: #166534;
+        }
+
+        .exam-action-btn {
+            background: linear-gradient(to bottom, #ff922b, #f76707);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(247, 103, 7, 0.2);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+        }
+
+        .exam-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(247, 103, 7, 0.3);
+        }
+
+        .exam-action-btn:active {
+            transform: translateY(0);
+        }
+
+        .exam-completed-badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+        }
+
+        .exam-locked-text {
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Ending Graduation Box */
+        .graduation-card {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #173f67 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            box-shadow: 0 10px 30px rgba(18, 52, 86, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: none;
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .graduation-card::before {
+            content: '\f501';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: -30px;
+            bottom: -30px;
+            font-size: 10rem;
+            opacity: 0.05;
+        }
+
+        .graduation-icon {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        .graduation-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .graduation-card p {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 24px;
+            opacity: 0.9;
+        }
+
+        .graduation-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .graduation-btn:hover {
+            transform: scale(1.05);
+            background: #1da851;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Responsive Syllabus Tweaks */
+        @media (max-width: 768px) {
+            .syllabus-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .simulator-toggle-wrapper {
+                justify-content: space-between;
+            }
+
+            .syllabus-progress-container {
+                justify-content: space-between;
+                min-width: 100%;
+            }
+
+            .syllabus-header h2 {
+                font-size: 2rem;
+            }
+
+            .timeline-container::before {
+                right: 25px;
+            }
+
+            .stage-card {
+                padding-right: 60px;
+            }
+
+            .stage-node {
+                width: 44px;
+                height: 44px;
+                right: 5px;
+                font-size: 1.1rem;
+                top: 15px;
+            }
+
+            .stage-header {
+                padding: 16px;
+            }
+
+            .stage-header h3 {
+                font-size: 1.15rem;
+            }
+
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exam-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .exam-action-btn, .exam-completed-badge {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Scroll padding to avoid title overlap when navigating */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px;
+        }
+
+        /* RTL Floating Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(18, 52, 86, 0.85); /* Semitransparent primary color */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 10px 25px;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            direction: rtl; /* Force RTL */
+        }
+
+        /* Scroll adaptation */
+        .navbar.scrolled {
+            top: 0;
+            width: 100%;
+            max-width: 100%;
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            background: rgba(18, 52, 86, 0.95);
+            padding: 12px 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-brand a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-brand .brand-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-light);
+            background: linear-gradient(135deg, #ffffff 0%, #a5d8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-brand i {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-cta {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            margin-right: 10px; /* spacing from links */
+        }
+
+        .nav-cta:hover {
+            background-color: #1da851;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Hamburger toggle */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        .nav-toggle .bar {
+            width: 100%;
+            height: 2.5px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 991px) {
+            html {
+                scroll-padding-top: 80px;
+            }
+
+            .navbar {
+                top: 0;
+                left: 0;
+                transform: none;
+                width: 100%;
+                border-radius: 0;
+                border: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 12px 20px;
+            }
+            
+            .nav-toggle {
+                display: flex;
+            }
+            
+            /* Hamburger to X animation */
+            .nav-toggle.open .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .nav-toggle.open .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .nav-toggle.open .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Slide out to the right */
+                width: 280px;
+                height: 100vh;
+                background: rgba(18, 52, 86, 0.98);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: stretch;
+                padding: 80px 24px 40px;
+                gap: 15px;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                direction: rtl;
+            }
+            
+            .nav-menu.open {
+                right: 0; /* Slide in to the screen */
+            }
+            
+            .nav-link {
+                font-size: 1.15rem;
+                padding: 12px 15px;
+                border-radius: 10px;
+                text-align: right;
+                display: block;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            
+            .nav-link:hover, .nav-link.active {
+                background: rgba(255, 255, 255, 0.08);
+            }
+            
+            .nav-cta {
+                margin-top: 20px;
+                margin-right: 0;
+                text-align: center;
+                padding: 12px;
+                font-size: 1.1rem;
+            }
+        }
     </style>
+    <!-- Canvas Confetti Library for Achievements -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
-    <section class="hero">
+    <!-- סרגל ניווט צף -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="#home">
+                    <i class="fas fa-paw"></i>
+                    <span class="brand-text">DogVibe</span>
+                </a>
+            </div>
+            
+            <button class="nav-toggle" aria-label="תפריט ניווט" onclick="toggleMenu()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active" onclick="closeMenu()">ראשי</a>
+                <a href="#why-online" class="nav-link" onclick="closeMenu()">למה אונליין?</a>
+                <a href="#process" class="nav-link" onclick="closeMenu()">התהליך</a>
+                <a href="#about" class="nav-link" onclick="closeMenu()">נעים להכיר</a>
+                <a href="#course-roadmap" class="nav-link" onclick="closeMenu()">סילבוס</a>
+                <a href="#faq" class="nav-link" onclick="closeMenu()">שאלות נפוצות</a>
+                <a href="https://wa.me/972559689062?text=%D7%94%D7%99%D7%99%20%D7%A6%D7%95%D7%A8%D7%99%D7%90%D7%9C%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91%D7%90%D7%99%D7%9C%D7%95%D7%A3%20%D7%91%D7%90%D7%95%D7%A0%D7%9C%D7%99%D7%99%D7%9F%21" class="nav-cta" onclick="closeMenu()">לשיעור ניסיון</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
         <h1>DogVibe</h1>
         <p>אילוף מקצועי, ליווי אישי ותוצאות מוכחות - הכל דרך הוואטסאפ שלכם.</p>
     </section>
@@ -493,7 +1385,7 @@
         </div>
     </section>
 
-    <section class="steps">
+    <section class="steps" id="process">
         <h2>התהליך שלנו</h2>
         <div class="step-list">
             <div class="step-item">
@@ -519,7 +1411,7 @@
         </div>
     </section>
 
-    <section class="content-split" style="flex-direction: row-reverse;">
+    <section class="content-split" id="about" style="flex-direction: row-reverse;">
         <div class="content-image">
             <img src="dog3.jpg" alt="צוריאל והכלבים">
         </div>
@@ -542,7 +1434,7 @@
         </div>
     </section>
 
-    <section class="features" style="background: transparent; padding-top: 40px; padding-bottom: 20px;">
+    <section class="features" id="why-online" style="background: transparent; padding-top: 40px; padding-bottom: 20px;">
         <div style="width: 100%; text-align: center; margin-bottom: 10px;">
             <h2 style="font-size: 2.2rem; color: var(--primary-color);">למה דווקא אילוף באונליין</h2>
         </div>
@@ -585,8 +1477,696 @@
         </div>
     </section>
 
+    <!-- Syllabus & Roadmap Section -->
+    <section class="syllabus-section" id="course-roadmap">
+        <div class="syllabus-header">
+            <h2>🐾 מפת הדרכים של Dog Vibe: סילבוס התוכנית</h2>
+            <p>הקורס מחולק ל-12 שלבים מובנים ומדורגים. כדי להבטיח תוצאות אמיתיות בשטח ולשמור על קצב נכון, בסיום כל שלב מתקיים מבחן מעבר מעשי – ורק לאחר מעבר בהצלחה נפתחים הקישורים והתכנים של השלב הבא!</p>
+        </div>
+
+        <!-- Syllabus Controls (Full Syllabus / Simulator Toggle) -->
+        <div class="syllabus-controls">
+            <div class="simulator-toggle-wrapper">
+                <span class="toggle-label">מצב תצוגה:</span>
+                <button class="toggle-btn active" id="view-mode-btn" onclick="setViewMode(false)">
+                    <i class="fas fa-list-ul"></i> סילבוס מלא
+                </button>
+                <button class="toggle-btn" id="sim-mode-btn" onclick="setViewMode(true)">
+                    <i class="fas fa-gamepad"></i> סימולטור למידה 🎮
+                </button>
+            </div>
+            <div class="syllabus-progress-container" id="progress-container-main" style="display: none;">
+                <span class="progress-text-main">התקדמות בסימולציה: <span id="progress-step-text-main">1</span>/12</span>
+                <div class="progress-bar-bg-main">
+                    <div class="progress-bar-fill-main" id="progress-bar-main"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-container">
+
+            <!-- STAGE 1 -->
+            <div class="stage-card unlocked expanded" id="main-stage-1" data-stage="1">
+                <div class="stage-node">01</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(1)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-1">שלב 1 מתוך 12</span>
+                            <h3>שלב 1: יסודות התקשורת והמשמעת</h3>
+                            <span class="stage-summary">הבסיס לכל תהליך האילוף - לומדים לדבר בשפה שהכלב מבין</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-cookie-bite"></i></div>
+                                    <div class="command-details">
+                                        <h4>לורינג (Luring)</h4>
+                                        <p>הובלה נכונה במאכל – הבסיס ללימוד כל פקודה בלי כפייה.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-arrow-down"></i></div>
+                                    <div class="command-details">
+                                        <h4>שב</h4>
+                                        <p>בסיס המשמעת והתקשורת הראשונית.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-arrows-up-to-line"></i></div>
+                                    <div class="command-details">
+                                        <h4>עמוד</h4>
+                                        <p>שליטה בתנוחת הכלב במרחב.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-bullseye"></i></div>
+                                    <div class="command-details">
+                                        <h4>קליקר + מבט</h4>
+                                        <p>יצירת פוקוס חד וחיבור ישיר אל הבעלים.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-1">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 1</h5>
+                                        <p id="main-examtext-1">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-1">
+                                    <!-- WhatsApp register link (populated by JS) -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 2 -->
+            <div class="stage-card unlocked" id="main-stage-2" data-stage="2">
+                <div class="stage-node">02</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(2)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-2">שלב 2 מתוך 12</span>
+                            <h3>שלב 2: הרגעה והשהייה</h3>
+                            <span class="stage-summary">איך ללמד את הכלב לשלוט בדחפים שלו ולהירגע גם בסיטואציות מרגשות</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-compress"></i></div>
+                                    <div class="command-details">
+                                        <h4>ארצה</h4>
+                                        <p>תנוחת הרגעה והשהייה יציבה.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-hand"></i></div>
+                                    <div class="command-details">
+                                        <h4>השאר</h4>
+                                        <p>בניית איפוק, סבלנות ויכולת התמדה מול גירויים.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-baseball-bat-ball"></i></div>
+                                    <div class="command-details">
+                                        <h4>משחק נכון</h4>
+                                        <p>פריקת אנרגיה מדויקת שמחזקת את הקשר ולא מייצרת סטרס.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-2">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 2</h5>
+                                        <p id="main-examtext-2">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-2">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 3 -->
+            <div class="stage-card unlocked" id="main-stage-3" data-stage="3">
+                <div class="stage-node">03</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(3)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-3">שלב 3 מתוך 12</span>
+                            <h3>שלב 3: מיקוד והרגלה למקום</h3>
+                            <span class="stage-summary">יצירת פינה בטוחה לכלב בבית וחיזוק מיומנויות גופניות וקואורדינציה</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-rotate"></i></div>
+                                    <div class="command-details">
+                                        <h4>סיבוב</h4>
+                                        <p>טריק כיפי שמפתח קואורדינציה וקשר עין.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-bed"></i></div>
+                                    <div class="command-details">
+                                        <h4>למקום</h4>
+                                        <p>הגעה למשטח הרגעה בבית ושקט נפשי.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-3">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 3</h5>
+                                        <p id="main-examtext-3">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-3">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 4 -->
+            <div class="stage-card unlocked" id="main-stage-4" data-stage="4">
+                <div class="stage-node">04</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(4)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-4">שלב 4 מתוך 12</span>
+                            <h3>שלב 4: עבודה מרחוק ובטיחות</h3>
+                            <span class="stage-summary">הפקודה החשובה ביותר שתעניק לכם שקט נפשי מלא בכל טיול</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-bullhorn"></i></div>
+                                    <div class="command-details">
+                                        <h4>אלי (Recall)</h4>
+                                        <p>חזרה מיידית אליך – הפקודה הקריטית ביותר לבטיחות בטיולים.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-4">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 4</h5>
+                                        <p id="main-examtext-4">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-4">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 5 -->
+            <div class="stage-card unlocked" id="main-stage-5" data-stage="5">
+                <div class="stage-node">05</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(5)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-5">שלב 5 מתוך 12</span>
+                            <h3>שלב 5: הליכה נכונה וטריקים ראשונים</h3>
+                            <span class="stage-summary">איך להפוך את הטיול לחוויה רגועה ללא משיכות ברצועה, בשילוב פקודות גמישות</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-person-walking"></i></div>
+                                    <div class="command-details">
+                                        <h4>רגלי</h4>
+                                        <p>הליכה רגועה ואיכותית לצד הבעלים ללא משיכות.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-masks-theater"></i></div>
+                                    <div class="command-details">
+                                        <h4>קידה</h4>
+                                        <p>שילוב בין גמישות, שחרור וטריק חמוד.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-5">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 5</h5>
+                                        <p id="main-examtext-5">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-5">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 6 -->
+            <div class="stage-card unlocked" id="main-stage-6" data-stage="6">
+                <div class="stage-node">06</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(6)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-6">שלב 6 מתוך 12</span>
+                            <h3>שלב 6: הבאה והחזרת חפצים</h3>
+                            <span class="stage-summary">פיתוח יצר העבודה של הכלב ולמידה של החזרה מדויקת של חפצים</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-rotate-left"></i></div>
+                                    <div class="command-details">
+                                        <h4>הבאה</h4>
+                                        <p>החזרת חפצים בצורה יזומה ומדויקת.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-6">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 6</h5>
+                                        <p id="main-examtext-6">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-6">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 7 -->
+            <div class="stage-card unlocked" id="main-stage-7" data-stage="7">
+                <div class="stage-node">07</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(7)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-7">שלב 7 מתוך 12</span>
+                            <h3>שלב 7: שליטה בחפצים ומכשולים</h3>
+                            <span class="stage-summary">בניית שליטה מנטלית ופיזית מתקדמת של הכלב בחפצים שונים</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-lock"></i></div>
+                                    <div class="command-details">
+                                        <h4>הולד (Hold)</h4>
+                                        <p>אחיזה יציבה ונכונה של חפצים בפה.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-hand-holding"></i></div>
+                                    <div class="command-details">
+                                        <h4>עזוב</h4>
+                                        <p>שחרור מיידי של חפצים לפי פקודה.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-arrows-up-down"></i></div>
+                                    <div class="command-details">
+                                        <h4>אפ + למטה</h4>
+                                        <p>עבודה על עליות וירידות ממשטחים בשליטה מלאה.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-7">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 7</h5>
+                                        <p id="main-examtext-7">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-7">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 8 -->
+            <div class="stage-card unlocked" id="main-stage-8" data-stage="8">
+                <div class="stage-node">08</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(8)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-8">שלב 8 מתוך 12</span>
+                            <h3>שלב 8: משימות מורכבות בתנועה</h3>
+                            <span class="stage-summary">הפעלת הראש והגוף במקביל - שילוב משימות קואורדינציה מתקדמות</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-basket-shopping"></i></div>
+                                    <div class="command-details">
+                                        <h4>שים בסל</h4>
+                                        <p>משימה מורכבת של הרמת חפץ וארגונו לתוך כלי.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-person-walking-arrow-right"></i></div>
+                                    <div class="command-details">
+                                        <h4>הולד בתנועה</h4>
+                                        <p>נשיאת חפצים בפה תוך כדי הליכה ותנועה במרחב.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-8">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 8</h5>
+                                        <p id="main-examtext-8">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-8">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 9 -->
+            <div class="stage-card unlocked" id="main-stage-9" data-stage="9">
+                <div class="stage-node">09</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(9)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-9">שלב 9 מתוך 12</span>
+                            <h3>שלב 9: הובלה והפעלת כוח</h3>
+                            <span class="stage-summary">לימוד הכלב לבצע פעולות פיזיות אקטיביות בהכוונה מדויקת</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-hand-pointer"></i></div>
+                                    <div class="command-details">
+                                        <h4>טאץ' (Touch)</h4>
+                                        <p>יצירת מגע ממוקד עם האף או היד להובלה קלה.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-arrows-left-right"></i></div>
+                                    <div class="command-details">
+                                        <h4>משיכה</h4>
+                                        <p>הפעלת כוח מבוקר על חפצים (פתיחת מגירות, דלתות ועוד).</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-9">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 9</h5>
+                                        <p id="main-examtext-9">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-9">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 10 -->
+            <div class="stage-card unlocked" id="main-stage-10" data-stage="10">
+                <div class="stage-node">10</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(10)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-10">שלב 10 מתוך 12</span>
+                            <h3>שלב 10: זיהוי חפצים וטריקים פיזיים</h3>
+                            <span class="stage-summary">עבודה קוגניטיבית עמוקה וטריקים שמחזקים את השרירים והאמון</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-shapes"></i></div>
+                                    <div class="command-details">
+                                        <h4>הבדלה בין חפצים</h4>
+                                        <p>עבודה מנטלית מתקדמת – זיהוי ומיון חפצים לפי שם.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-shield-heart"></i></div>
+                                    <div class="command-details">
+                                        <h4>ארנב</h4>
+                                        <p>עמידה יציבה על שתי רגליים אחוריות לפיתוח שיווי משקל.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-handshake"></i></div>
+                                    <div class="command-details">
+                                        <h4>יד</h4>
+                                        <p>מתן כפה/מגע ישיר ונעים.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-arrows-spin"></i></div>
+                                    <div class="command-details">
+                                        <h4>גלגול</h4>
+                                        <p>טריק מעצים שמחזק את האמון של הכלב בבעלים.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-10">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 10</h5>
+                                        <p id="main-examtext-10">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-10">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 11 -->
+            <div class="stage-card unlocked" id="main-stage-11" data-stage="11">
+                <div class="stage-node">11</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(11)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-11">שלב 11 מתוך 12</span>
+                            <h3>שלב 11: תנועה משולבת וכיפית</h3>
+                            <span class="stage-summary">תרגילי זרימה ותנועה משותפת המייצרים סינכרון מושלם בין הכלב לבעלים</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-wand-magic-sparkles"></i></div>
+                                    <div class="command-details">
+                                        <h4>בוום</h4>
+                                        <p>טריק חווייתי שמייצר תקשורת קלילה וכיפית.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-shuffle"></i></div>
+                                    <div class="command-details">
+                                        <h4>סללום בין הרגליים</h4>
+                                        <p>תנועה זורמת ומשולבת של הכלב והבעלים.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-people-arrows"></i></div>
+                                    <div class="command-details">
+                                        <h4>הליכה בין הרגליים</h4>
+                                        <p>תנועה משותפת שמחזקת ביטחון וקרבה.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-11">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 11</h5>
+                                        <p id="main-examtext-11">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-11">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 12 -->
+            <div class="stage-card unlocked" id="main-stage-12" data-stage="12">
+                <div class="stage-node">12</div>
+                <div class="stage-panel">
+                    <div class="stage-header" onclick="toggleMainStage(12)">
+                        <div class="stage-title-area">
+                            <span class="stage-badge active-badge" id="main-badge-12">שלב 12 מתוך 12</span>
+                            <h3>שלב 12: שלב הסיום</h3>
+                            <span class="stage-summary">פסגת היכולות של הכלב - שליטה מלאה בתנועות גוף מורכבות וסיום חגיגי</span>
+                        </div>
+                        <i class="fas fa-chevron-down stage-icon-indicator"></i>
+                    </div>
+                    <div class="stage-body">
+                        <div class="stage-body-content">
+                            <div class="commands-title">
+                                <i class="fas fa-paw"></i> תכני הלימוד והפקודות בשלב זה:
+                            </div>
+                            <div class="commands-grid">
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-backward-step"></i></div>
+                                    <div class="command-details">
+                                        <h4>אחורה</h4>
+                                        <p>הליכה לאחור בשליטה מלאה על חלקו האחורי של הגוף.</p>
+                                    </div>
+                                </div>
+                                <div class="command-card">
+                                    <div class="command-icon-wrapper"><i class="fas fa-arrow-down-long"></i></div>
+                                    <div class="command-details">
+                                        <h4>זחילה</h4>
+                                        <p>מעבר נמוך על הרצפה תוך שמירה על תנוחה.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Exam Box -->
+                            <div class="exam-box" id="main-exambox-12">
+                                <div class="exam-info">
+                                    <i class="fas fa-clipboard-list exam-icon"></i>
+                                    <div class="exam-info-text">
+                                        <h5>מבחן מעבר שלב 12</h5>
+                                        <p id="main-examtext-12">...</p>
+                                    </div>
+                                </div>
+                                <div class="exam-action" id="main-examaction-12">
+                                    <!-- Dynamic Action Button -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End Timeline Container -->
+
+        <!-- Graduation Card (Revealed at the end of Simulation) -->
+        <div class="graduation-card" id="graduation-box-main">
+            <i class="fas fa-graduation-cap graduation-icon"></i>
+            <h3>🎓 מזל טוב! השלמתם את מפת הדרכים של Dog Vibe!</h3>
+            <p>הכלב שלכם רכש 29 מיומנויות ופקודות שונות, עברתם 12 מבחנים מעשיים, והגעתם לתוצאות של מקצוענים אמיתיים בשטח!</p>
+            <button class="graduation-btn" onclick="resetMainSimulation()">
+                <i class="fas fa-rotate-left"></i> התחל תרגול מחדש
+            </button>
+        </div>
+    </section>
+
     <!-- FAQ Section -->
-    <div class="faq-container">
+    <div class="faq-container" id="faq">
         <div class="faq-bar" onclick="toggleFaq()">
             <h2>שאלות נפוצות <i class="fas fa-chevron-down" id="faqIcon"></i></h2>
         </div>
@@ -767,6 +2347,68 @@
     </div>
 
     <script>
+        // תפריט ניווט נייד
+        function toggleMenu() {
+            const toggle = document.querySelector('.nav-toggle');
+            const menu = document.getElementById('navMenu');
+            if (toggle && menu) {
+                toggle.classList.toggle('open');
+                menu.classList.toggle('open');
+            }
+        }
+
+        function closeMenu() {
+            const toggle = document.querySelector('.nav-toggle');
+            const menu = document.getElementById('navMenu');
+            if (toggle && menu) {
+                toggle.classList.remove('open');
+                menu.classList.remove('open');
+            }
+        }
+
+        // סגירת התפריט בלחיצה מחוץ אליו
+        document.addEventListener('click', (e) => {
+            const toggle = document.querySelector('.nav-toggle');
+            const menu = document.getElementById('navMenu');
+            if (toggle && menu && !toggle.contains(e.target) && !menu.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // שינוי עיצוב סרגל הניווט בגלילה
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+        });
+
+        // Scroll Spy - הדגשת הקישור הפעיל בסרגל הניווט לפי מיקום הגלילה
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id], div.faq-container[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
         function toggleFaq() {
             const content = document.getElementById('faqContent');
             const icon = document.getElementById('faqIcon');
@@ -796,6 +2438,262 @@
                 event.target.style.display = 'none';
             }
         }
+
+        // === סילבוס ומפת הדרכים - לוגיקה ===
+        const EXAM_DETAILS = {
+            1: "שלחו סרטון המציג: יצירת פוקוס של 3 שניות, ביצוע פקודת שב ועמוד בעזרת לורינג.",
+            2: "שלחו סרטון המציג: ביצוע ארצה, הישארות ל-30 שניות תוך כדי משחק סביבו, וחזרה למשחק נכון.",
+            3: "שלחו סרטון המציג: שליחת הכלב למקום ממרחק של 2 מטרים והשהייה של דקה, פלוס ביצוע סיבוב.",
+            4: "שלחו סרטון המציג: הגעה מיידית בריצה מהירה לקריאת 'אלי' במרחב פתוח/חצר עם גירויים קלים.",
+            5: "שלחו סרטון המציג: הליכה צמודה ברצועה רפויה ללא משיכות (רגלי) למרחק 20 מטר וביצוע קידה בסיום.",
+            6: "שלחו סרטון המציג: הבאת צעצוע שנזרק למרחק 5 מטרים ומסירתו ישירות ליד שלכם.",
+            7: "שלחו סרטון המציג: אחיזת חפץ (הולד) למשך 5 שניות, ביצוע אפ/למטה על משטח, ושחרור (עזוב) לפקודה.",
+            8: "שלחו סרטון המציג: הרמת צעצוע מהרצפה, הליכה איתו (הולד בתנועה) והנחתו בתוך סל ייעודי.",
+            9: "שלחו סרטון המציג: מגע יד של הכלב במטרה (טאץ') ומשיכת חבל לפתיחת דלת/מגירה.",
+            10: "שלחו סרטון המציג: ביצוע ארנב, גלגול, מתן יד (כפה), והבדלה נכונה בין שני צעצועים לפי שמם.",
+            11: "שלחו סרטון המציג: הליכה בין הרגליים וביצוע סללום רציף של 4 צעדים, ובסיום טריק בוום.",
+            12: "מבחן הגמר הגדול! הציגו שילוב של זחילה למרחק מטר, הליכה לאחור 5 צעדים, ומעבר רציף של כל פקודות הבסיס לקבלת תעודת גמר!"
+        };
+
+        let isSimulatorMode = false;
+        let currentActiveStage = 1;
+        const totalStages = 12;
+
+        function setViewMode(mode) {
+            isSimulatorMode = mode;
+            updateSyllabusView();
+        }
+
+        function toggleMainStage(stageNum) {
+            const card = document.getElementById(`main-stage-${stageNum}`);
+            if (isSimulatorMode && card.classList.contains('locked')) {
+                // Shake on click if locked
+                card.style.transform = 'translateX(5px)';
+                setTimeout(() => card.style.transform = 'none', 100);
+                return;
+            }
+            card.classList.toggle('expanded');
+        }
+
+        function passMainStage(stageNum, event) {
+            if (event) event.stopPropagation();
+
+            const currentCard = document.getElementById(`main-stage-${stageNum}`);
+            currentCard.classList.remove('active');
+            currentCard.classList.add('completed');
+
+            const badge = document.getElementById(`main-badge-${stageNum}`);
+            badge.className = 'stage-badge completed-badge';
+            badge.innerHTML = '<i class="fas fa-check"></i> הושלם בהצלחה';
+
+            const examActionDiv = document.getElementById(`main-examaction-${stageNum}`);
+            examActionDiv.innerHTML = `
+                <div class="exam-completed-badge">
+                    <i class="fas fa-circle-check"></i> עברתם בהצלחה! ✅
+                </div>
+            `;
+
+            // Trigger confetti
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#25D366', '#123456', '#ff922b', '#ffffff']
+                });
+            }
+
+            const nextStageNum = stageNum + 1;
+            if (nextStageNum <= totalStages) {
+                currentActiveStage = nextStageNum;
+                unlockMainStage(nextStageNum);
+            } else {
+                showMainGraduation();
+            }
+
+            updateMainProgressBar();
+        }
+
+        function unlockMainStage(stageNum) {
+            const card = document.getElementById(`main-stage-${stageNum}`);
+            card.classList.remove('locked');
+            card.classList.add('active');
+            card.classList.add('expanded');
+
+            setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+
+            const badge = document.getElementById(`main-badge-${stageNum}`);
+            badge.className = 'stage-badge active-badge';
+            badge.innerHTML = 'למידה פעילה';
+
+            const examIcon = document.querySelector(`#main-exambox-${stageNum} .exam-icon`);
+            if (examIcon) {
+                examIcon.className = 'fas fa-clipboard-list exam-icon';
+                examIcon.style.color = '#ff922b';
+            }
+
+            const examText = document.getElementById(`main-examtext-${stageNum}`);
+            if (examText) examText.innerText = EXAM_DETAILS[stageNum];
+
+            const examActionDiv = document.getElementById(`main-examaction-${stageNum}`);
+            if (examActionDiv) {
+                examActionDiv.innerHTML = `
+                    <button class="exam-action-btn" onclick="passMainStage(${stageNum}, event)">
+                        <i class="fas fa-circle-check"></i> בצע מבחן מעבר מעשי
+                    </button>
+                `;
+            }
+        }
+
+        function updateMainProgressBar() {
+            const completedCount = document.querySelectorAll('.stage-card.completed').length;
+            const openCount = completedCount + 1 > totalStages ? totalStages : completedCount + 1;
+            
+            document.getElementById('progress-step-text-main').innerText = openCount;
+            const percentage = (openCount / totalStages) * 100;
+            document.getElementById('progress-bar-main').style.width = `${percentage}%`;
+        }
+
+        function resetMainSimulation() {
+            document.getElementById('graduation-box-main').style.display = 'none';
+
+            for (let i = 1; i <= totalStages; i++) {
+                const card = document.getElementById(`main-stage-${i}`);
+                if (i === 1) {
+                    card.className = 'stage-card active expanded';
+                    
+                    const badge = document.getElementById('main-badge-1');
+                    badge.className = 'stage-badge active-badge';
+                    badge.innerHTML = 'למידה פעילה';
+
+                    const examActionDiv = document.getElementById('main-examaction-1');
+                    examActionDiv.innerHTML = `
+                        <button class="exam-action-btn" onclick="passMainStage(1, event)">
+                            <i class="fas fa-circle-check"></i> בצע מבחן מעבר מעשי
+                        </button>
+                    `;
+                    
+                    const examText = document.getElementById('main-examtext-1');
+                    examText.innerText = EXAM_DETAILS[1];
+                } else {
+                    card.className = 'stage-card locked';
+                    
+                    const badge = document.getElementById(`main-badge-${i}`);
+                    badge.className = 'stage-badge locked-badge';
+                    badge.innerHTML = 'נעול';
+
+                    const examIcon = document.querySelector(`#main-exambox-${i} .exam-icon`);
+                    if (examIcon) {
+                        examIcon.className = 'fas fa-lock exam-icon';
+                        examIcon.style.color = 'var(--locked-color)';
+                    }
+
+                    const examText = document.getElementById(`main-examtext-${i}`);
+                    if (examText) examText.innerText = `שלב נעול. עבור את שלב ${i-1} כדי להציג את פרטי המבחן.`;
+
+                    const examActionDiv = document.getElementById(`main-examaction-${i}`);
+                    if (examActionDiv) {
+                        examActionDiv.innerHTML = `<span class="exam-locked-text"><i class="fas fa-lock"></i> נעול</span>`;
+                    }
+                }
+            }
+
+            currentActiveStage = 1;
+            updateMainProgressBar();
+            document.getElementById('main-stage-1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showMainGraduation() {
+            const gradBox = document.getElementById('graduation-box-main');
+            gradBox.style.display = 'block';
+            setTimeout(() => {
+                gradBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+
+            if (typeof confetti === 'function') {
+                const duration = 3 * 1000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 3,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#25D366', '#123456', '#ffffff']
+                    });
+                    confetti({
+                        particleCount: 3,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#25D366', '#123456', '#ffffff']
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
+        }
+
+        function updateSyllabusView() {
+            const progressContainer = document.getElementById('progress-container-main');
+            const viewBtn = document.getElementById('view-mode-btn');
+            const simBtn = document.getElementById('sim-mode-btn');
+            const gradBox = document.getElementById('graduation-box-main');
+
+            if (!isSimulatorMode) {
+                // Full Syllabus Mode
+                progressContainer.style.display = 'none';
+                viewBtn.classList.add('active');
+                simBtn.classList.remove('active');
+                gradBox.style.display = 'none';
+
+                // Open only the first stage by default, keep others collapsed but unlocked
+                for (let i = 1; i <= totalStages; i++) {
+                    const card = document.getElementById(`main-stage-${i}`);
+                    card.className = i === 1 ? 'stage-card unlocked expanded' : 'stage-card unlocked';
+
+                    const badge = document.getElementById(`main-badge-${i}`);
+                    badge.className = 'stage-badge active-badge';
+                    badge.innerHTML = `שלב ${i} מתוך 12`;
+
+                    const examIcon = document.querySelector(`#main-exambox-${i} .exam-icon`);
+                    if (examIcon) {
+                        examIcon.className = 'fas fa-clipboard-list exam-icon';
+                        examIcon.style.color = '#ff922b';
+                    }
+
+                    const examText = document.getElementById(`main-examtext-${i}`);
+                    if (examText) {
+                        examText.innerHTML = `<strong>מבחן מעבר מעשי:</strong> ${EXAM_DETAILS[i]}<br><span style="font-size: 0.8rem; color: #868e96;">* בקורס האמיתי, מעבר בהצלחה של מבחן זה יפתח עבורכם את השלב הבא.</span>`;
+                    }
+
+                    const examActionDiv = document.getElementById(`main-examaction-${i}`);
+                    if (examActionDiv) {
+                        examActionDiv.innerHTML = `
+                            <a href="https://wa.me/972559689062?text=%D7%94%D7%99%D7%99%20%D7%A6%D7%95%D7%A8%D7%99%D7%90%D7%9C%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%A6%D7%98%D7%A8%D7%A3%20%D7%9C%D7%A7%D7%95%D7%A8%D7%A5%20%D7%95%D7%9C%D7%94%D7%AA%D7%97%D7%99%D7%9C%20%D7%90%D7%AA%20%D7%A9%D7%9C%D7%91%201%21" class="exam-action-btn" style="text-decoration: none;" target="_blank">
+                                <i class="fab fa-whatsapp"></i> הרשמה לקורס
+                            </a>
+                        `;
+                    }
+                }
+            } else {
+                // Simulator Mode
+                progressContainer.style.display = 'flex';
+                viewBtn.classList.remove('active');
+                simBtn.classList.add('active');
+                resetMainSimulation();
+            }
+        }
+
+        // Initialize Syllabus View on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSyllabusView();
+        });
     </script>
 </body>
 
