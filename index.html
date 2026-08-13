@@ -36,18 +36,18 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('dog1.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), url('dog1.jpg');
             /* תמונה ראשונה */
             background-size: cover;
-            background-position: center;
-            height: 80vh;
+            background-position: center 25%;
+            height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: var(--text-light);
-            padding: 20px;
+            padding: 80px 20px 20px;
         }
 
         .hero h1 {
@@ -1094,23 +1094,20 @@
             scroll-padding-top: 110px;
         }
 
-        /* RTL Floating Navbar Styles */
+        /* RTL Navbar Styles */
         .navbar {
             position: fixed;
-            top: 15px;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
-            background: rgba(18, 52, 86, 0.85); /* Semitransparent primary color */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50px;
-            padding: 10px 25px;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(10, 25, 45, 0.4) 0%, rgba(10, 25, 45, 0) 100%);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 6px 40px;
             z-index: 9999;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
+            transition: all 0.35s ease;
             direction: rtl; /* Force RTL */
         }
 
@@ -1118,14 +1115,12 @@
         .navbar.scrolled {
             top: 0;
             width: 100%;
-            max-width: 100%;
-            border-radius: 0;
-            border-left: none;
-            border-right: none;
-            border-top: none;
             background: rgba(18, 52, 86, 0.95);
-            padding: 12px 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 8px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .nav-container {
@@ -1144,11 +1139,11 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .nav-brand .brand-text {
-            font-size: 1.6rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: var(--text-light);
             background: linear-gradient(135deg, #ffffff 0%, #a5d8ff 100%);
@@ -1157,42 +1152,42 @@
         }
 
         .nav-brand i {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: var(--accent-color);
         }
 
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 8px;
         }
 
         .nav-link {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 0.92rem;
             font-weight: 700;
             transition: all 0.25s ease;
-            padding: 8px 16px;
+            padding: 5px 12px;
             border-radius: 20px;
         }
 
         .nav-link:hover, .nav-link.active {
             color: var(--text-light);
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .nav-cta {
             background-color: var(--accent-color);
             color: white;
-            padding: 8px 22px;
+            padding: 6px 18px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.92rem;
             transition: all 0.25s ease;
             box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
-            margin-right: 10px; /* spacing from links */
+            margin-right: 8px; /* spacing from links */
         }
 
         .nav-cta:hover {
@@ -1236,6 +1231,7 @@
                 border-radius: 0;
                 border: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                background: rgba(18, 52, 86, 0.95);
                 padding: 12px 20px;
             }
             
@@ -1323,9 +1319,9 @@
 
             <nav class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link active" onclick="closeMenu()">ראשי</a>
-                <a href="#why-online" class="nav-link" onclick="closeMenu()">למה אונליין?</a>
                 <a href="#process" class="nav-link" onclick="closeMenu()">התהליך</a>
                 <a href="#about" class="nav-link" onclick="closeMenu()">נעים להכיר</a>
+                <a href="#why-online" class="nav-link" onclick="closeMenu()">למה אונליין?</a>
                 <a href="#course-roadmap" class="nav-link" onclick="closeMenu()">סילבוס</a>
                 <a href="#faq" class="nav-link" onclick="closeMenu()">שאלות נפוצות</a>
                 <a href="https://wa.me/972559689062?text=%D7%94%D7%99%D7%99%20%D7%A6%D7%95%D7%A8%D7%99%D7%90%D7%9C%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%A9%D7%99%D7%A2%D7%95%D7%A8%20%D7%A0%D7%99%D7%A1%D7%99%D7%95%D7%9F%20%D7%91%D7%90%D7%99%D7%9C%D7%95%D7%A3%20%D7%91%D7%90%D7%95%D7%A0%D7%9C%D7%99%D7%99%D7%9F%21" class="nav-cta" onclick="closeMenu()">לשיעור ניסיון</a>
