@@ -848,12 +848,11 @@
             background: #fff8f0;
             border: 1px solid #ffe8cc;
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: flex-start;
+            gap: 12px;
             transition: all 0.3s ease;
         }
 
@@ -864,16 +863,15 @@
 
         .exam-info {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 12px;
             flex: 1;
-            min-width: 250px;
         }
 
         .exam-icon {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #ff922b;
-            margin-top: 2px;
+            margin-top: 0;
         }
 
         .stage-card.completed .exam-icon {
@@ -884,7 +882,7 @@
             font-size: 1.05rem;
             font-weight: 700;
             color: #d9480f;
-            margin-bottom: 2px;
+            margin-bottom: 0;
         }
 
         .stage-card.completed .exam-info-text h5 {
@@ -1473,30 +1471,11 @@
         </div>
     </section>
 
-    <!-- Syllabus & Roadmap Section -->
+        <!-- Syllabus & Roadmap Section -->
     <section class="syllabus-section" id="course-roadmap">
         <div class="syllabus-header">
             <h2>🐾 מפת הדרכים של Dog Vibe: סילבוס התוכנית</h2>
             <p>הקורס מחולק ל-12 שלבים מובנים ומדורגים. כדי להבטיח תוצאות אמיתיות בשטח ולשמור על קצב נכון, בסיום כל שלב מתקיים מבחן מעבר מעשי – ורק לאחר מעבר בהצלחה נפתחים הקישורים והתכנים של השלב הבא!</p>
-        </div>
-
-        <!-- Syllabus Controls (Full Syllabus / Simulator Toggle) -->
-        <div class="syllabus-controls">
-            <div class="simulator-toggle-wrapper">
-                <span class="toggle-label">מצב תצוגה:</span>
-                <button class="toggle-btn active" id="view-mode-btn" onclick="setViewMode(false)">
-                    <i class="fas fa-list-ul"></i> סילבוס מלא
-                </button>
-                <button class="toggle-btn" id="sim-mode-btn" onclick="setViewMode(true)">
-                    <i class="fas fa-gamepad"></i> סימולטור למידה 🎮
-                </button>
-            </div>
-            <div class="syllabus-progress-container" id="progress-container-main" style="display: none;">
-                <span class="progress-text-main">התקדמות בסימולציה: <span id="progress-step-text-main">1</span>/12</span>
-                <div class="progress-bar-bg-main">
-                    <div class="progress-bar-fill-main" id="progress-bar-main"></div>
-                </div>
-            </div>
         </div>
 
         <div class="timeline-container">
@@ -1554,11 +1533,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 1</h5>
-                                        <p id="main-examtext-1">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-1">
-                                    <!-- WhatsApp register link (populated by JS) -->
                                 </div>
                             </div>
                         </div>
@@ -1612,11 +1587,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 2</h5>
-                                        <p id="main-examtext-2">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-2">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -1663,11 +1634,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 3</h5>
-                                        <p id="main-examtext-3">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-3">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -1707,11 +1674,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 4</h5>
-                                        <p id="main-examtext-4">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-4">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -1758,11 +1721,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 5</h5>
-                                        <p id="main-examtext-5">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-5">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -1802,11 +1761,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 6</h5>
-                                        <p id="main-examtext-6">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-6">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -1860,11 +1815,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 7</h5>
-                                        <p id="main-examtext-7">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-7">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -1911,11 +1862,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 8</h5>
-                                        <p id="main-examtext-8">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-8">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -1962,11 +1909,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 9</h5>
-                                        <p id="main-examtext-9">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-9">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -2027,11 +1970,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 10</h5>
-                                        <p id="main-examtext-10">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-10">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -2085,11 +2024,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 11</h5>
-                                        <p id="main-examtext-11">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-11">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -2136,11 +2071,7 @@
                                     <i class="fas fa-clipboard-list exam-icon"></i>
                                     <div class="exam-info-text">
                                         <h5>מבחן מעבר שלב 12</h5>
-                                        <p id="main-examtext-12">...</p>
                                     </div>
-                                </div>
-                                <div class="exam-action" id="main-examaction-12">
-                                    <!-- Dynamic Action Button -->
                                 </div>
                             </div>
                         </div>
@@ -2149,16 +2080,6 @@
             </div>
 
         </div> <!-- End Timeline Container -->
-
-        <!-- Graduation Card (Revealed at the end of Simulation) -->
-        <div class="graduation-card" id="graduation-box-main">
-            <i class="fas fa-graduation-cap graduation-icon"></i>
-            <h3>🎓 מזל טוב! השלמתם את מפת הדרכים של Dog Vibe!</h3>
-            <p>הכלב שלכם רכש 29 מיומנויות ופקודות שונות, עברתם 12 מבחנים מעשיים, והגעתם לתוצאות של מקצוענים אמיתיים בשטח!</p>
-            <button class="graduation-btn" onclick="resetMainSimulation()">
-                <i class="fas fa-rotate-left"></i> התחל תרגול מחדש
-            </button>
-        </div>
     </section>
 
     <!-- FAQ Section -->
@@ -2436,260 +2357,12 @@
         }
 
         // === סילבוס ומפת הדרכים - לוגיקה ===
-        const EXAM_DETAILS = {
-            1: "שלחו סרטון המציג: יצירת פוקוס של 3 שניות, ביצוע פקודת שב ועמוד בעזרת לורינג.",
-            2: "שלחו סרטון המציג: ביצוע ארצה, הישארות ל-30 שניות תוך כדי משחק סביבו, וחזרה למשחק נכון.",
-            3: "שלחו סרטון המציג: שליחת הכלב למקום ממרחק של 2 מטרים והשהייה של דקה, פלוס ביצוע סיבוב.",
-            4: "שלחו סרטון המציג: הגעה מיידית בריצה מהירה לקריאת 'אלי' במרחב פתוח/חצר עם גירויים קלים.",
-            5: "שלחו סרטון המציג: הליכה צמודה ברצועה רפויה ללא משיכות (רגלי) למרחק 20 מטר וביצוע קידה בסיום.",
-            6: "שלחו סרטון המציג: הבאת צעצוע שנזרק למרחק 5 מטרים ומסירתו ישירות ליד שלכם.",
-            7: "שלחו סרטון המציג: אחיזת חפץ (הולד) למשך 5 שניות, ביצוע אפ/למטה על משטח, ושחרור (עזוב) לפקודה.",
-            8: "שלחו סרטון המציג: הרמת צעצוע מהרצפה, הליכה איתו (הולד בתנועה) והנחתו בתוך סל ייעודי.",
-            9: "שלחו סרטון המציג: מגע יד של הכלב במטרה (טאץ') ומשיכת חבל לפתיחת דלת/מגירה.",
-            10: "שלחו סרטון המציג: ביצוע ארנב, גלגול, מתן יד (כפה), והבדלה נכונה בין שני צעצועים לפי שמם.",
-            11: "שלחו סרטון המציג: הליכה בין הרגליים וביצוע סללום רציף של 4 צעדים, ובסיום טריק בוום.",
-            12: "מבחן הגמר הגדול! הציגו שילוב של זחילה למרחק מטר, הליכה לאחור 5 צעדים, ומעבר רציף של כל פקודות הבסיס לקבלת תעודת גמר!"
-        };
-
-        let isSimulatorMode = false;
-        let currentActiveStage = 1;
-        const totalStages = 12;
-
-        function setViewMode(mode) {
-            isSimulatorMode = mode;
-            updateSyllabusView();
-        }
-
         function toggleMainStage(stageNum) {
             const card = document.getElementById(`main-stage-${stageNum}`);
-            if (isSimulatorMode && card.classList.contains('locked')) {
-                // Shake on click if locked
-                card.style.transform = 'translateX(5px)';
-                setTimeout(() => card.style.transform = 'none', 100);
-                return;
-            }
-            card.classList.toggle('expanded');
-        }
-
-        function passMainStage(stageNum, event) {
-            if (event) event.stopPropagation();
-
-            const currentCard = document.getElementById(`main-stage-${stageNum}`);
-            currentCard.classList.remove('active');
-            currentCard.classList.add('completed');
-
-            const badge = document.getElementById(`main-badge-${stageNum}`);
-            badge.className = 'stage-badge completed-badge';
-            badge.innerHTML = '<i class="fas fa-check"></i> הושלם בהצלחה';
-
-            const examActionDiv = document.getElementById(`main-examaction-${stageNum}`);
-            examActionDiv.innerHTML = `
-                <div class="exam-completed-badge">
-                    <i class="fas fa-circle-check"></i> עברתם בהצלחה! ✅
-                </div>
-            `;
-
-            // Trigger confetti
-            if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 80,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#25D366', '#123456', '#ff922b', '#ffffff']
-                });
-            }
-
-            const nextStageNum = stageNum + 1;
-            if (nextStageNum <= totalStages) {
-                currentActiveStage = nextStageNum;
-                unlockMainStage(nextStageNum);
-            } else {
-                showMainGraduation();
-            }
-
-            updateMainProgressBar();
-        }
-
-        function unlockMainStage(stageNum) {
-            const card = document.getElementById(`main-stage-${stageNum}`);
-            card.classList.remove('locked');
-            card.classList.add('active');
-            card.classList.add('expanded');
-
-            setTimeout(() => {
-                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
-
-            const badge = document.getElementById(`main-badge-${stageNum}`);
-            badge.className = 'stage-badge active-badge';
-            badge.innerHTML = 'למידה פעילה';
-
-            const examIcon = document.querySelector(`#main-exambox-${stageNum} .exam-icon`);
-            if (examIcon) {
-                examIcon.className = 'fas fa-clipboard-list exam-icon';
-                examIcon.style.color = '#ff922b';
-            }
-
-            const examText = document.getElementById(`main-examtext-${stageNum}`);
-            if (examText) examText.innerText = EXAM_DETAILS[stageNum];
-
-            const examActionDiv = document.getElementById(`main-examaction-${stageNum}`);
-            if (examActionDiv) {
-                examActionDiv.innerHTML = `
-                    <button class="exam-action-btn" onclick="passMainStage(${stageNum}, event)">
-                        <i class="fas fa-circle-check"></i> בצע מבחן מעבר מעשי
-                    </button>
-                `;
+            if (card) {
+                card.classList.toggle('expanded');
             }
         }
-
-        function updateMainProgressBar() {
-            const completedCount = document.querySelectorAll('.stage-card.completed').length;
-            const openCount = completedCount + 1 > totalStages ? totalStages : completedCount + 1;
-            
-            document.getElementById('progress-step-text-main').innerText = openCount;
-            const percentage = (openCount / totalStages) * 100;
-            document.getElementById('progress-bar-main').style.width = `${percentage}%`;
-        }
-
-        function resetMainSimulation() {
-            document.getElementById('graduation-box-main').style.display = 'none';
-
-            for (let i = 1; i <= totalStages; i++) {
-                const card = document.getElementById(`main-stage-${i}`);
-                if (i === 1) {
-                    card.className = 'stage-card active expanded';
-                    
-                    const badge = document.getElementById('main-badge-1');
-                    badge.className = 'stage-badge active-badge';
-                    badge.innerHTML = 'למידה פעילה';
-
-                    const examActionDiv = document.getElementById('main-examaction-1');
-                    examActionDiv.innerHTML = `
-                        <button class="exam-action-btn" onclick="passMainStage(1, event)">
-                            <i class="fas fa-circle-check"></i> בצע מבחן מעבר מעשי
-                        </button>
-                    `;
-                    
-                    const examText = document.getElementById('main-examtext-1');
-                    examText.innerText = EXAM_DETAILS[1];
-                } else {
-                    card.className = 'stage-card locked';
-                    
-                    const badge = document.getElementById(`main-badge-${i}`);
-                    badge.className = 'stage-badge locked-badge';
-                    badge.innerHTML = 'נעול';
-
-                    const examIcon = document.querySelector(`#main-exambox-${i} .exam-icon`);
-                    if (examIcon) {
-                        examIcon.className = 'fas fa-lock exam-icon';
-                        examIcon.style.color = 'var(--locked-color)';
-                    }
-
-                    const examText = document.getElementById(`main-examtext-${i}`);
-                    if (examText) examText.innerText = `שלב נעול. עבור את שלב ${i-1} כדי להציג את פרטי המבחן.`;
-
-                    const examActionDiv = document.getElementById(`main-examaction-${i}`);
-                    if (examActionDiv) {
-                        examActionDiv.innerHTML = `<span class="exam-locked-text"><i class="fas fa-lock"></i> נעול</span>`;
-                    }
-                }
-            }
-
-            currentActiveStage = 1;
-            updateMainProgressBar();
-            document.getElementById('main-stage-1').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function showMainGraduation() {
-            const gradBox = document.getElementById('graduation-box-main');
-            gradBox.style.display = 'block';
-            setTimeout(() => {
-                gradBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
-
-            if (typeof confetti === 'function') {
-                const duration = 3 * 1000;
-                const end = Date.now() + duration;
-
-                (function frame() {
-                    confetti({
-                        particleCount: 3,
-                        angle: 60,
-                        spread: 55,
-                        origin: { x: 0 },
-                        colors: ['#25D366', '#123456', '#ffffff']
-                    });
-                    confetti({
-                        particleCount: 3,
-                        angle: 120,
-                        spread: 55,
-                        origin: { x: 1 },
-                        colors: ['#25D366', '#123456', '#ffffff']
-                    });
-
-                    if (Date.now() < end) {
-                        requestAnimationFrame(frame);
-                    }
-                }());
-            }
-        }
-
-        function updateSyllabusView() {
-            const progressContainer = document.getElementById('progress-container-main');
-            const viewBtn = document.getElementById('view-mode-btn');
-            const simBtn = document.getElementById('sim-mode-btn');
-            const gradBox = document.getElementById('graduation-box-main');
-
-            if (!isSimulatorMode) {
-                // Full Syllabus Mode
-                progressContainer.style.display = 'none';
-                viewBtn.classList.add('active');
-                simBtn.classList.remove('active');
-                gradBox.style.display = 'none';
-
-                // Open only the first stage by default, keep others collapsed but unlocked
-                for (let i = 1; i <= totalStages; i++) {
-                    const card = document.getElementById(`main-stage-${i}`);
-                    card.className = i === 1 ? 'stage-card unlocked expanded' : 'stage-card unlocked';
-
-                    const badge = document.getElementById(`main-badge-${i}`);
-                    badge.className = 'stage-badge active-badge';
-                    badge.innerHTML = `שלב ${i} מתוך 12`;
-
-                    const examIcon = document.querySelector(`#main-exambox-${i} .exam-icon`);
-                    if (examIcon) {
-                        examIcon.className = 'fas fa-clipboard-list exam-icon';
-                        examIcon.style.color = '#ff922b';
-                    }
-
-                    const examText = document.getElementById(`main-examtext-${i}`);
-                    if (examText) {
-                        examText.innerHTML = `<strong>מבחן מעבר מעשי:</strong> ${EXAM_DETAILS[i]}<br><span style="font-size: 0.8rem; color: #868e96;">* בקורס האמיתי, מעבר בהצלחה של מבחן זה יפתח עבורכם את השלב הבא.</span>`;
-                    }
-
-                    const examActionDiv = document.getElementById(`main-examaction-${i}`);
-                    if (examActionDiv) {
-                        examActionDiv.innerHTML = `
-                            <a href="https://wa.me/972559689062?text=%D7%94%D7%99%D7%99%20%D7%A6%D7%95%D7%A8%D7%99%D7%90%D7%9C%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%A6%D7%98%D7%A8%D7%A3%20%D7%9C%D7%A7%D7%95%D7%A8%D7%A5%20%D7%95%D7%9C%D7%94%D7%AA%D7%97%D7%99%D7%9C%20%D7%90%D7%AA%20%D7%A9%D7%9C%D7%91%201%21" class="exam-action-btn" style="text-decoration: none;" target="_blank">
-                                <i class="fab fa-whatsapp"></i> הרשמה לקורס
-                            </a>
-                        `;
-                    }
-                }
-            } else {
-                // Simulator Mode
-                progressContainer.style.display = 'flex';
-                viewBtn.classList.remove('active');
-                simBtn.classList.add('active');
-                resetMainSimulation();
-            }
-        }
-
-        // Initialize Syllabus View on Load
-        document.addEventListener('DOMContentLoaded', () => {
-            updateSyllabusView();
-        });
     </script>
 </body>
 
